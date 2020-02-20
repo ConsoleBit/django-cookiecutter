@@ -1,0 +1,13 @@
+# Django
+*.log
+*.pot
+*.pyc
+
+# Documentation build
+build/
+
+# Misc
+*.db
+
+# IDEs
+.idea/

@@ -1,0 +1,15 @@
+{
+    "author_name": "Your Name",
+    "email": "Your Email",
+    "year": "{% now 'utc', '%Y' %}",
+    "version": "0.1.0",
+    "project_name": "project_name",
+    "repo_name": "{{ cookiecutter.project_name|replace(' ', '_')|replace('-', '_') }}",
+    "description": "{{ cookiecutter.project_name }} website",
+    "languages": "en",
+    "timezone": "UTC",
+    "domain_name": "{{ cookiecutter.project_name|replace(' ', '-') }}.com",
+    "postgres": "n",
+    "s3": "n",
+    "api": "n"
+}
