@@ -1,4 +1,4 @@
-Django==2.1.0
+Django==2.2.10
 Pillow==6.2.0
 {% if cookiecutter.postgres == "y" or cookiecutter.postgres == "Y" %}
 psycopg2==2.7.7
