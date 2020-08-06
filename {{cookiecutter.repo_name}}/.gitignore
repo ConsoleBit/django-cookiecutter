@@ -34,3 +34,4 @@ whoosh_index/*
 CACHE
 CACHE/*
 togit.sh
+venv/*

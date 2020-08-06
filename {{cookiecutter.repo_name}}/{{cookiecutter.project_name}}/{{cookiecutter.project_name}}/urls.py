@@ -24,9 +24,6 @@ schema_view = get_schema_view(
 admin.site.site_title = "{{ cookiecutter.project_name|title }} Administration"
 admin.site.site_header = "{{ cookiecutter.project_name|title }} Administration"
 
-
-
-
 urlpatterns = i18n_patterns(
 	path('admin/', admin.site.urls),
     prefix_default_language = False

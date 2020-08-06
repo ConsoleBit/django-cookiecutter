@@ -8,7 +8,7 @@
     "description": "{{ cookiecutter.project_name }} website",
     "languages": "en",
     "timezone": "UTC",
-    "domain_name": "{{ cookiecutter.project_name|replace(' ', '-') }}.com",
+    "domain_name": "{{ cookiecutter.project_name|replace(' ', '-') }}",
     "postgres": "n",
     "s3": "n",
     "api": "n"

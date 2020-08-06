@@ -2,6 +2,6 @@
 -r base.txt
 
 {% if cookiecutter.s3 == "y" or cookiecutter.s3 == "Y" %}
-django-storages==1.7.1
+django-storages==1.9.1
 boto==2.49.0
 {% endif %}

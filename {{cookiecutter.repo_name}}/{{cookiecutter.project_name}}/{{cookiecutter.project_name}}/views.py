@@ -7,7 +7,7 @@ from rest_framework import status
 from django.shortcuts import render
 {% endif %}
 
-def handler404(request):
+def handler404(request, exception):
 	{% if cookiecutter.api == "y" or cookiecutter.api == "Y" %}
     data = {
         'errors': {'not_found': 'This URL does not exist'},

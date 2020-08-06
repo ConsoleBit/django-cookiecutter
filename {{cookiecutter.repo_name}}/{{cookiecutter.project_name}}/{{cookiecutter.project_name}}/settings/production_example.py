@@ -5,8 +5,6 @@ ALLOWED_HOSTS = [
 ]
 
 {% if cookiecutter.s3 == "y" or cookiecutter.s3 == "Y" %}
-
-
 INSTALLED_APPS += (
     'storages',
 )
@@ -48,3 +46,7 @@ DATABASES = {
         'PORT': '',                       # Set to empty string for default.
     }
 }
+
+{% if cookiecutter.api == "y" or cookiecutter.api == "Y" %}
+CORS_URLS_REGEX = r'^/api/.*$'
+{% endif %}

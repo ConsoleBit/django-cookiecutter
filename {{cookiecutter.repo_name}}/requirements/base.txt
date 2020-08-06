@@ -1,14 +1,13 @@
-Django==2.2.10
-Pillow==6.2.0
+Django==3.1
+Pillow==7.2.0
 {% if cookiecutter.postgres == "y" or cookiecutter.postgres == "Y" %}
-psycopg2==2.7.7
+psycopg2==2.8.5
 {% endif %}
 {% if cookiecutter.api == "y" or cookiecutter.api == "Y" %}
-djangorestframework==3.11.0
-django-rest-multiple-models==2.1.3
+djangorestframework==3.11.1
 drf-yasg==1.17.1
-django-filter==2.1.0
+django-filter==2.3.0
+django-cors-headers==0.01
 {% endif %}
-django-treebeard==4.3
-django-extensions==2.1.4
-django-constance[database]
+django-extensions==3.0.4
+django-constance[database]==2.7.0

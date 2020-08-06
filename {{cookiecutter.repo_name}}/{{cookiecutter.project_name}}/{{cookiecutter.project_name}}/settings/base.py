@@ -7,7 +7,7 @@ import subprocess
 from os.path import abspath, basename, dirname, join, normpath
 from sys import path
 
-########## PATH CONFIGURATION
+#PATH CONFIGURATION
 BASE_DIR = dirname(dirname(__file__) + "../../../")
 
 # Absolute filesystem path to the config directory:
@@ -32,15 +32,15 @@ PROJECT_DOMAIN = '%s.com' % PROJECT_NAME.lower()
 # Add our project to our pythonpath, this way we don't need to type our project
 # name in our dotted import paths:
 path.append(CONFIG_ROOT)
-########## END PATH CONFIGURATION
+# END PATH CONFIGURATION
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
-########## DEBUG CONFIGURATION
+# DEBUG CONFIGURATION
 # https://docs.djangoproject.com/en/dev/ref/settings/#debug
 DEBUG = STAGING = False
-########## END DEBUG CONFIGURATION
+# END DEBUG CONFIGURATION
 
 ADMINS = (
     ("""{{cookiecutter.author_name}}""", '{{cookiecutter.email}}'),
@@ -63,7 +63,7 @@ DATABASES = {
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -120,8 +120,6 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
-
 )
 
 # Make this unique, and don't share it with anybody.
@@ -151,6 +149,9 @@ TEMPLATES = [
 ]
 
 MIDDLEWARE = (
+    {% if cookiecutter.api == "y" or cookiecutter.api == "Y" %}
+    'corsheaders.middleware.CorsMiddleware',
+    {% endif %}
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -174,12 +175,11 @@ INSTALLED_APPS = (
     'django.contrib.sitemaps',
     'django.contrib.staticfiles',
     'django.contrib.messages',
-    'treebeard',
     {% if cookiecutter.api == "y" or cookiecutter.api == "Y" %}
     'rest_framework',
     'django_filters',
-	'drf_multiple_model',
 	'drf_yasg',
+    'corsheaders',
     {% endif %}
     'constance',
     'constance.backends.database',
@@ -268,4 +268,9 @@ REST_FRAMEWORK = {
 
 LOGIN_URL = 'rest_framework:login'
 LOGOUT_URL = 'rest_framework:logout'
+
+SWAGGER_SETTINGS = {
+    'JSON_EDITOR': True,
+    'SHOW_REQUEST_HEADERS': True
+}
 {% endif %}
