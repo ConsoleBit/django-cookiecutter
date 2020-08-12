@@ -1,10 +1,9 @@
 """
-ASGI config for {{ project_name }} project.
+ASGI config for {{ cookiecutter.project_name }} project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
 For more information on this file, see
-https://docs.djangoproject.com/en/{{ docs_version }}/howto/deployment/asgi/
 """
 
 import os
