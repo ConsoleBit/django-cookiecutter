@@ -1,30 +1,28 @@
 """
 Django settings for {{ cookiecutter.project_name }} project.
 """
-from datetime import datetime
-from os import environ, getenv
-import subprocess
+from os import environ
 from os.path import abspath, basename, dirname, join, normpath
+from pathlib import Path
 from sys import path
 
-#PATH CONFIGURATION
-BASE_DIR = dirname(dirname(__file__) + "../../../")
-
+# PATH CONFIGURATION
+BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 # Absolute filesystem path to the config directory:
 
-CONFIG_ROOT = dirname(dirname(abspath(__file__)))
+CONFIG_ROOT = Path(__file__).resolve(strict=True).parent.parent
 
 # Absolute filesystem path to the project directory:
-PROJECT_ROOT = dirname(CONFIG_ROOT)
+PROJECT_ROOT = Path(CONFIG_ROOT).resolve(strict=True).parent
 
 # Absolute filesystem path to the django repo directory:
-DJANGO_ROOT = dirname(PROJECT_ROOT)
+DJANGO_ROOT = Path(PROJECT_ROOT).resolve(strict=True).parent
 
 # Project name:
-PROJECT_NAME = basename(PROJECT_ROOT).capitalize()
+PROJECT_NAME = PROJECT_ROOT.name.capitalize()
 
 # Project folder:
-PROJECT_FOLDER = basename(PROJECT_ROOT)
+PROJECT_FOLDER = PROJECT_ROOT.name
 
 # Project domain:
 PROJECT_DOMAIN = '%s.com' % PROJECT_NAME.lower()
@@ -34,11 +32,6 @@ PROJECT_DOMAIN = '%s.com' % PROJECT_NAME.lower()
 path.append(CONFIG_ROOT)
 # END PATH CONFIGURATION
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
-
-# DEBUG CONFIGURATION
-# https://docs.djangoproject.com/en/dev/ref/settings/#debug
 DEBUG = STAGING = False
 # END DEBUG CONFIGURATION
 
@@ -52,14 +45,13 @@ DATABASES = {
     'default': {
         'CONN_MAX_AGE': 0,
         'ENGINE': 'django.db.backends.',  # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '',                       # Or path to database file if using sqlite3.
+        'NAME': '',  # Or path to database file if using sqlite3.
         'USER': '',
         'PASSWORD': '',
-        'HOST': '',                       # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        'PORT': '',                       # Set to empty string for default.
+        'HOST': '',  # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+        'PORT': '',  # Set to empty string for default.
     }
 }
-
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
@@ -73,7 +65,7 @@ TIME_ZONE = '{{ cookiecutter.timezone }}'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = '{{cookiecutter.languages.strip().split(',')[0]}}'
+LANGUAGE_CODE = '{{cookiecutter.languages.strip().split(', ')[0]}}'
 
 SITE_ID = 1
 
@@ -90,7 +82,7 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
-MEDIA_ROOT = normpath(join(PROJECT_ROOT, 'media'))
+MEDIA_ROOT = PROJECT_ROOT.joinpath("media")
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -101,7 +93,7 @@ MEDIA_URL = '/media/'
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
-STATIC_ROOT = normpath(join(PROJECT_ROOT, 'assets'))
+STATIC_ROOT = PROJECT_ROOT.joinpath("assets")
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
@@ -112,7 +104,7 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    normpath(join(PROJECT_ROOT, 'static')),
+    PROJECT_ROOT.joinpath("static"),
 )
 
 # List of finder classes that know how to find static files in
@@ -129,7 +121,7 @@ SECRET_KEY = environ.get('DJANGO_SECRET_KEY')
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': (normpath(join(PROJECT_ROOT, 'templates')),),
+        'DIRS': (PROJECT_ROOT.joinpath("templates"),),
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -178,7 +170,7 @@ INSTALLED_APPS = (
     {% if cookiecutter.api == "y" or cookiecutter.api == "Y" %}
     'rest_framework',
     'django_filters',
-	'drf_yasg',
+    'drf_yasg',
     'corsheaders',
     {% endif %}
     'constance',
@@ -205,17 +197,15 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-LOCALE_PATHS = (normpath(join(PROJECT_ROOT, 'locale')),)
+LOCALE_PATHS = (PROJECT_ROOT.joinpath("locale"),)
 
 # Dummy gettext function
 gettext = lambda s: s
 
-
 LANGUAGES = [
-    {% for language in cookiecutter.languages.strip().split(',') -%}
-    ('{{ language|trim }}', gettext('{{ language|trim }}')),
-    {% endfor %}
+{% for language in cookiecutter.languages.strip().split(',') - %}
+('{{ language|trim }}', gettext('{{ language|trim }}')),
+{% endfor %}
 ]
 
 
@@ -245,7 +235,6 @@ CONSTANCE_CONFIG_FIELDSETS = {
     'SEO': ('GOOGLE_ANALYTICS', 'GOOGLE_TAG_MANAGER', 'GOOGLE_SITE_VERIFICATION')
 }
 
-
 {% if cookiecutter.api == "y" or cookiecutter.api == "Y" %}
 # Django Rest Framework
 REST_FRAMEWORK = {
@@ -264,7 +253,6 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10
 }
-
 
 LOGIN_URL = 'rest_framework:login'
 LOGOUT_URL = 'rest_framework:logout'
