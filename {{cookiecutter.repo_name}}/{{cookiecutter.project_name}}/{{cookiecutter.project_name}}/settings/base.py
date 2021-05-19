@@ -197,7 +197,7 @@ LOCALE_PATHS = (CONFIG_ROOT.joinpath("locale"),)
 gettext = lambda s: s
 
 LANGUAGES = [
-{% for language in cookiecutter.languages.strip().split(',') - %}
+{% for language in cookiecutter.languages.strip().split(',') %}
 ('{{ language|trim }}', gettext('{{ language|trim }}')),
 {% endfor %}
 ]
