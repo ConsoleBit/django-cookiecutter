@@ -29,7 +29,7 @@ PROJECT_DOMAIN = '%s.com' % PROJECT_NAME.lower()
 
 # Add our project to our pythonpath, this way we don't need to type our project
 # name in our dotted import paths:
-path.append(CONFIG_ROOT)
+path.append(str(PROJECT_ROOT))
 # END PATH CONFIGURATION
 
 DEBUG = STAGING = False
@@ -104,7 +104,7 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    CONFIG_ROOT.joinpath("static"),
+    PROJECT_ROOT.joinpath("static"),
 )
 
 
@@ -115,7 +115,7 @@ SECRET_KEY = environ.get('DJANGO_SECRET_KEY')
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': (CONFIG_ROOT.joinpath("templates"),),
+        'DIRS': (PROJECT_ROOT.joinpath("templates"),),
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -191,7 +191,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LOCALE_PATHS = (CONFIG_ROOT.joinpath("locale"),)
+LOCALE_PATHS = (PROJECT_ROOT.joinpath("locale"),)
 
 # Dummy gettext function
 gettext = lambda s: s
