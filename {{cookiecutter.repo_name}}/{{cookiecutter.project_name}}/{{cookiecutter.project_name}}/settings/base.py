@@ -104,15 +104,9 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    PROJECT_ROOT.joinpath("static"),
+    CONFIG_ROOT.joinpath("static"),
 )
 
-# List of finder classes that know how to find static files in
-# various locations.
-STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-)
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = environ.get('DJANGO_SECRET_KEY')
@@ -121,7 +115,7 @@ SECRET_KEY = environ.get('DJANGO_SECRET_KEY')
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': (PROJECT_ROOT.joinpath("templates"),),
+        'DIRS': (CONFIG_ROOT.joinpath("templates"),),
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -197,7 +191,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LOCALE_PATHS = (PROJECT_ROOT.joinpath("locale"),)
+LOCALE_PATHS = (CONFIG_ROOT.joinpath("locale"),)
 
 # Dummy gettext function
 gettext = lambda s: s
@@ -211,6 +205,7 @@ LANGUAGES = [
 
 # Custom User Model
 AUTH_USER_MODEL = 'user.User'
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Django Constance
 CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
